@@ -29,13 +29,17 @@ def create_cpell_json():
         pass
 
     with open("cspell.json", "w") as f:
-        data = {
-            "version": json_data.get("version", "0.2"),
-            "language": json_data.get("language", "en"),
-            "enableFiletypes": json_data.get("enableFiletypes", ["py"]),
-            "words": sorted(list(invalid_words))
-        }
-        json.dump(data, f, indent=2)
+        json_data.update({
+            "version":
+            json_data.get("version", "0.2"),
+            "language":
+            json_data.get("language", "en"),
+            "enableFiletypes":
+            json_data.get("enableFiletypes", ["py"]),
+            "words":
+            sorted(list(invalid_words))
+        })
+        json.dump(json_data, f, indent=2)
 
 
 if __name__ == "__main__":
