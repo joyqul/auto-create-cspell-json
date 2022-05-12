@@ -19,14 +19,23 @@ def create_cpell_json():
         found_invalid_word = parse_invalid_word_from_line(line)
         if found_invalid_word:
             invalid_words.add(found_invalid_word)
-    json_data = {
-        "version": "0.2",
-        "language": "en",
-        "enableFiletypes": ["py"],
-        "words": sorted(list(invalid_words))
-    }
+    json_data = {}
+    try:
+        with open("cspell.json", "r") as f:
+            json_data = json.load(f)
+            existed_words = json_data.get('words', [])
+            invalid_words.update(existed_words)
+    except:
+        pass
+
     with open("cspell.json", "w") as f:
-        json.dump(json_data, f, indent=2)
+        data = {
+            "version": json_data.get("version", "0.2"),
+            "language": json_data.get("language", "en"),
+            "enableFiletypes": json_data.get("enableFiletypes", ["py"]),
+            "words": sorted(list(invalid_words))
+        }
+        json.dump(data, f, indent=2)
 
 
 if __name__ == "__main__":

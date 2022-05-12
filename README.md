@@ -1,4 +1,4 @@
-A simple script to create cspell.json based on current invalid words.
+A simple script to create or update cspell.json based on current invalid words.
 
 Usage
 ===============================
